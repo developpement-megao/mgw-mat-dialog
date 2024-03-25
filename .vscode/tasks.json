@@ -37,6 +37,23 @@
           }
         }
       }
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "npm: lint",
+      "detail": "ng lint"
+    },
+    {
+      "type": "npm",
+      "script": "build:prod",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "npm: build:prod",
+      "detail": "ng build mgw-mat-dialog --configuration production"
     }
   ]
 }
