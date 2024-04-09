@@ -1,0 +1,39 @@
+<h1 mat-dialog-title *ngIf="affDialTitre">{{ dialTitre || dialTitreDef }}</h1>
+<div mat-dialog-content *ngIf="data?.dialTexte || inputFields">
+  <p *ngIf="data?.dialTexte as dlgText">{{ dlgText }}</p>
+  <ng-container *ngIf="inputFields">
+    <div *ngFor="let iptfld of inputFields | keyvalue: compareKeyValueIptfld; trackBy: trackByInputFieldsFn" class="cont-form-field-input">
+      <p *ngIf="iptfld.value.texteIntroduction as texteIntro">{{ texteIntro }}</p>
+      <mat-form-field [ngStyle]="iptfld.value.formFieldStyle" [color]="iptfld.value.formFieldColorTheme" [hideRequiredMarker]="iptfld.value.hideRequiredMarker">
+        <mat-label *ngIf="iptfld.value.inputFieldLabel !== ''">{{ iptfld.value.inputFieldLabel ?? iptfld.value.inputFieldPlaceholder ?? iptfld.key }}</mat-label>
+        <span *ngIf="iptfld.value.inputFieldPrefixText as iptfldpt" matTextPrefix>{{ iptfldpt }} &nbsp;</span>
+        <mat-icon *ngIf="iptfld.value.inputFieldPrefixIcon as iptfldpi" matPrefix>{{ iptfldpi }}</mat-icon>
+        <input
+          matInput
+          [placeholder]="(iptfld.value.inputFieldLabel === undefined ? undefined : iptfld.value.inputFieldPlaceholder) ?? ''"
+          [readonly]="iptfld.value.inputFieldReadonly"
+          [disabled]="iptfld.value.inputFieldDisabled ?? false"
+          [required]="iptfld.value.inputFieldRequired ?? false"
+          [type]="iptfld.value.inputFieldType ?? iptfldTypeDef"
+          [autocomplete]="iptfld.value.inputFieldAutocomplete"
+          [autocapitalize]="iptfld.value.inputFieldAutocapitalize"
+          [(ngModel)]="iptfld.value.inputFieldValue" />
+        <span *ngIf="iptfld.value.inputFieldSuffixText as iptfldst" matTextSuffix>{{ iptfldst }}</span>
+        <mat-icon *ngIf="iptfld.value.inputFieldSuffixIcon as iptfldsi" matSuffix>{{ iptfldsi }}</mat-icon>
+        <mat-hint *ngIf="iptfld.value.inputFieldHintStart as iptfldhst" align="start">{{ iptfldhst }}</mat-hint>
+        <mat-hint *ngIf="iptfld.value.inputFieldHintEnd as iptfldhet" align="end">{{ iptfldhet }}</mat-hint>
+        <mat-error>{{ iptfld.value.inputFieldErrorMessage || iptfldErrMessRequiredDef }}</mat-error>
+      </mat-form-field>
+    </div>
+  </ng-container>
+</div>
+<div mat-dialog-actions *ngIf="dialButtons" [align]="data?.dialActionButtonsAlignment">
+  <button
+    *ngFor="let bt of dialButtons; trackBy: trackByDialButtonsFn"
+    mat-button
+    [color]="bt.buttonColor"
+    [attr.cdkFocusInitial]="bt.isButtonFocusInitial"
+    (click)="onButtonClick(bt.buttonResult)">
+    {{ bt.buttonLibelle }}
+  </button>
+</div>
