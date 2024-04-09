@@ -42,4 +42,3 @@ typings
 Thumbs.db
 
 *.spec.ts
-app.module.ts
